@@ -9,5 +9,32 @@ export const Container = styled.header`
   display: flex;
   justify-content: space-between;
   padding: 0 5rem;
-  background: red;
+`;
+
+export const Profile = styled.div`
+  display: flex;
+  align-items: center;
+
+  > img {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    line-height: 1.5rem;
+
+    span{
+      font-size: 0.875rem;
+      color: ${({ theme }) => theme.COLORS.GRAY_100};;
+    }
+
+    strong{
+      font-size: 1.125rem;
+      color: ${({ theme }) => theme.COLORS.WHITE};;
+    }
+  }
 `;
