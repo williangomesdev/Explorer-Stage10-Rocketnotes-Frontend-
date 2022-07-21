@@ -17,7 +17,7 @@ export const Container = styled.div`
 `;
 
 export const Links = styled.ul`
-  list-style-type: style none;
+  list-style: none;
   > li {
     margin-top: 0.75rem;
 
