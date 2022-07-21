@@ -45,4 +45,13 @@ export const Content = styled.div`
 `;
 export const NewNote = styled.button`
   grid-area: newnote;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: ${({ theme }) => theme.COLORS.ORANGE};
+
+  > svg {
+    margin-right: 0.5rem;
+  }
 `;
