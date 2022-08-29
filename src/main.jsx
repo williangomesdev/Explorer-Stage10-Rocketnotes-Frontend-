@@ -6,16 +6,16 @@ import theme from "./styles/theme"
 import { Routes } from './routes'
 
 //Importar contexto
-import { MyContext } from './myContext'
+import { AuthProvider } from './hooks/auth'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode >
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <MyContext.Provider value={{email:'wamarotest@gmail.com'}}>
+      <AuthProvider>
         <Routes />
-      </MyContext.Provider>
+      </AuthProvider>
     </ThemeProvider>
   </React.StrictMode >
 )

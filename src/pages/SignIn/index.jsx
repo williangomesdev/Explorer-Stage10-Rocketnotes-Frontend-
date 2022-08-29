@@ -5,12 +5,11 @@ import { Input } from '../../components/Input'
 import { Button } from '../../components/Button'
 
 //Importar useContext para usarmos os contextos
-import { useContext } from 'react'
-import { MyContext } from '../../myContext'
+import { useAuth } from '../../hooks/auth'
 
 
 export function SignIn() {
-    const data = useContext(MyContext)
+    const data = useAuth()
     console.log("MEU CONTEXTO =>", data)
 
 
