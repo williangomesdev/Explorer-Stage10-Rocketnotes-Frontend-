@@ -1,5 +1,5 @@
 //Criar contexto
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { api } from '../../../api_rocketnotes/src/services/api'
 
 export const AuthContext = createContext({});
@@ -18,6 +18,11 @@ function AuthProvider({ children }) {
       api.defaults.headers.authorization = `Bearer ${token}`
       setData({ user, token })
 
+      //Armazenar dados de autenticação no navegador do usuário
+      //dados tem que ser armazenado em formato de texto é nescessário fazer a conversão do dado
+      localStorage.setItem("@rocketnotes:user", JSON.stringify(user))
+      localStorage.setItem("@rocketnotes:token", token)
+
     } catch (error) {
       if (error.response) {
         alert(error.response.data.message)
@@ -27,10 +32,24 @@ function AuthProvider({ children }) {
     }
   }
 
+  useEffect(() => {
+    const user = localStorage.getItem("@rocketnotes:user")
+    const token = localStorage.getItem("@rocketnotes:token")
+
+    if (user && token) {
+      api.defaults.headers.authorization = `Bearer ${token}`
+
+      setData({
+        user: JSON.parse(user),
+        token
+      })
+    }
+  }, [])
+
 
 
   return (
-    <AuthContext.Provider value={{ signIn, user:data.user }}>
+    <AuthContext.Provider value={{ signIn, user: data.user }}>
       {children}
     </AuthContext.Provider>
   );
