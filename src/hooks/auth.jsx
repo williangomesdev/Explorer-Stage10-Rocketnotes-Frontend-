@@ -1,55 +1,59 @@
 //Criar contexto
 import { createContext, useContext, useState, useEffect } from "react";
-import { api } from '../../../api_rocketnotes/src/services/api'
+import { api } from "../../../api_rocketnotes/src/services/api";
 
 export const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
-  const [data, setData] = useState({})
+  const [data, setData] = useState({});
 
   //função de autenticação
   //parâmetros em {} é possível obter as propriedades em qualquer ordem
   async function signIn({ email, password }) {
-
     try {
-      const response = await api.post("/sessions", { email, password })
-      const { user, token } = response.data
+      const response = await api.post("/sessions", { email, password });
+      const { user, token } = response.data;
 
-      api.defaults.headers.authorization = `Bearer ${token}`
-      setData({ user, token })
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      setData({ user, token });
 
       //Armazenar dados de autenticação no navegador do usuário
       //dados tem que ser armazenado em formato de texto é nescessário fazer a conversão do dado
-      localStorage.setItem("@rocketnotes:user", JSON.stringify(user))
-      localStorage.setItem("@rocketnotes:token", token)
-
+      localStorage.setItem("@rocketnotes:user", JSON.stringify(user));
+      localStorage.setItem("@rocketnotes:token", token);
     } catch (error) {
       if (error.response) {
-        alert(error.response.data.message)
+        alert(error.response.data.message);
       } else {
-        alert("Não foi possível entrar.")
+        alert("Não foi possível entrar.");
       }
     }
   }
 
+  //função de Log out
+  function signOut() {
+    localStorage.removeItem("@rocketnotes:user");
+    localStorage.removeItem("@rocketnotes:token");
+
+    setData({});
+  }
+
   useEffect(() => {
-    const user = localStorage.getItem("@rocketnotes:user")
-    const token = localStorage.getItem("@rocketnotes:token")
+    const user = localStorage.getItem("@rocketnotes:user");
+    const token = localStorage.getItem("@rocketnotes:token");
 
     if (user && token) {
-      api.defaults.headers.authorization = `Bearer ${token}`
+      api.defaults.headers.authorization = `Bearer ${token}`;
 
       setData({
         user: JSON.parse(user),
-        token
-      })
+        token,
+      });
     }
-  }, [])
-
-
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ signIn, user: data.user }}>
+    <AuthContext.Provider value={{ signIn, signOut, user: data.user }}>
       {children}
     </AuthContext.Provider>
   );
