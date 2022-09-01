@@ -12,9 +12,15 @@ export function New() {
   const [links, setLinks] = useState([]);
   const [newLink, setNewLink] = useState("");
 
+  //Adicionar links
   function handleAddLink() {
     setLinks((prevState) => [...prevState, newLink]);
     setNewLink("");
+  }
+
+  //remover link
+  function handleRemoveLink(deleted) {
+    setLinks((prevState) => prevState.filter((link) => link !== deleted));
   }
 
   return (
@@ -29,8 +35,16 @@ export function New() {
           <Input placeholder="Título" />
           <Textarea placeholder="Observações" />
           <Section title="Links úteis">
+            {/* renderizar varias vezes o link */}
             {links.map((link, index) => (
-              <NoteItem key={String(index)} value={link} onClick={() => {}} />
+              <NoteItem
+                key={String(index)}
+                value={link}
+                //quando houver parâmetros se usa a arrow function
+                onClick={() => {
+                  handleRemoveLink(link);
+                }}
+              />
             ))}
             <NoteItem
               isNew
