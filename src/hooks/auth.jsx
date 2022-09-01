@@ -39,8 +39,17 @@ function AuthProvider({ children }) {
   }
 
   //Atualizar Perfil
-  async function updateProfile({ user }) {
+  async function updateProfile({ user, avatarFile }) {
     try {
+      //se houver uma nova foto de perfil para a atualizar
+      if (avatarFile) {
+        const fileUploadForm = new FormData();
+        fileUploadForm.append("avatar", avatarFile);
+
+        const response = await api.patch("/users/avatar", fileUploadForm);
+        user.avatar = response.data.avatar;
+      }
+
       await api.put("/users", user);
       //atualizar dados do usuário no input
       localStorage.setItem("@rocketnotes:user", JSON.stringify(user));
@@ -70,7 +79,9 @@ function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ signIn, signOut, updateProfile, user: data.user }}>
+    <AuthContext.Provider
+      value={{ signIn, signOut, updateProfile, user: data.user }}
+    >
       {children}
     </AuthContext.Provider>
   );
