@@ -1,6 +1,7 @@
 import { Container, Profile, Logout } from "./styles";
 import { RiShutDownLine } from "react-icons/ri";
 import { api } from "../../../../api_rocketnotes/src/services/api";
+import avatarPlaceholder from "../../assets/avatar_background.svg";
 
 //importando hook de auth
 import { useAuth } from "../../hooks/auth";
