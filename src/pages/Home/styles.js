@@ -34,7 +34,7 @@ export const Menu = styled.ul`
   padding-top: 4rem;
   text-align: center;
 
-  > li {
+  > li{
     margin-bottom: 1.5rem;
   }
 `;
