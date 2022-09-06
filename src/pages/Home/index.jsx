@@ -18,9 +18,13 @@ export function Home() {
   const [notes, setNotes] = useState([]);
 
   function handleTagSelected(tagName) {
+    if (tagName === "all") {
+      return setTagsSelected([]);
+    }
+
     const alreadySelected = tagsSelected.includes(tagName);
 
-    //caso a tag esteje selecionada tire a estilização
+    //caso a tag esteja selecionada tire a estilização
     if (alreadySelected) {
       const filteredTags = tagsSelected.filter((tag) => tag !== tagName);
       setTagsSelected(filteredTags);
