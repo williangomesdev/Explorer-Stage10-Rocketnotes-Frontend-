@@ -1,12 +1,15 @@
-import { api } from "../../../../api_rocketnotes/src/services/api";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
 import { Button } from "../../components/Button";
 import { ButtonText } from "../../components/ButtonText";
 import { Header } from "../../components/Header";
 import { Section } from "../../components/Section";
 import { Tag } from "../../components/Tag";
 import { Container, Links, Content } from "./styles.js";
+
+
+import { api } from "../../../../api_rocketnotes/src/services/api";
 
 //useParams = buscar parâmetros na pagina
 

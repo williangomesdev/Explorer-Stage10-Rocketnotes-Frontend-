@@ -1,14 +1,15 @@
-import { Container, Brand, Menu, Search, Content, NewNote } from "./styles";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { FiPlus } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+
 import { Header } from "../../components/Header";
 import { ButtonText } from "../../components/ButtonText";
 import { Input } from "../../components/Input";
 import { Section } from "../../components/Section";
 import { Note } from "../../components/Note";
 
-import { useState } from "react";
-import { useEffect } from "react";
+import { Container, Brand, Menu, Search, Content, NewNote } from "./styles";
+
 import { api } from "../../../../api_rocketnotes/src/services/api";
 
 export function Home() {
@@ -78,10 +79,8 @@ export function Home() {
             <li key={String(tag.id)}>
               <ButtonText
                 title={tag.name}
+                onClick={() => {handleTagSelected(tag.name);}}
                 isActive={tagsSelected.includes(tag.name)}
-                onClick={() => {
-                  handleTagSelected(tag.name);
-                }}
               />
             </li>
           ))}
