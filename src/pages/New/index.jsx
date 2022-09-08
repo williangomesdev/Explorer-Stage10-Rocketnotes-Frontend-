@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
 import { Textarea } from "../../components/Textarea";
@@ -8,6 +8,7 @@ import { Section } from "../../components/Section";
 import { Button } from "../../components/Button";
 import { api } from "../../../../api_rocketnotes/src/services/api";
 import { Container, Form } from "./styles";
+import { ButtonText } from "../../components/ButtonText";
 
 export function New() {
   const [title, setTitle] = useState("");
@@ -17,6 +18,10 @@ export function New() {
   const [tags, setTags] = useState([]);
   const [newTag, setNewTag] = useState("");
   const navigate = useNavigate();
+
+  function handleBack() {
+    navigate(-1);
+  }
 
   //Adicionar links
   function handleAddLink() {
@@ -48,12 +53,12 @@ export function New() {
 
     if (newTag) {
       return alert(
-        "Você deixou uma tag no campo para adicionar mais não clicou em adicionar. Clique para adicionar ou deixe o campo vazio"
+        "Você deixou uma tag no campo para adicionar mas não clicou em adicionar. Clique para adicionar ou deixe o campo vazio"
       );
     }
     if (newLink) {
       return alert(
-        "Você deixou um link no campo para adicionar mais não clicou em adicionar. Clique para adicionar ou deixe o campo vazio"
+        "Você deixou um link no campo para adicionar mas não clicou em adicionar. Clique para adicionar ou deixe o campo vazio"
       );
     }
     await api.post("/notes", {
@@ -65,7 +70,7 @@ export function New() {
 
     alert("Nota criada com sucesso!");
     //retornar para a home
-    navigate("/");
+    navigate(-1);
   }
 
   return (
@@ -75,7 +80,7 @@ export function New() {
         <Form>
           <header>
             <h1>Criar nota</h1>
-            <Link to="/">Voltar</Link>
+            <ButtonText title="Voltar" onClick={handleBack}/>
           </header>
           <Input
             placeholder="Título"
